@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const bcrypt = require('bcrypt-nodejs');
 
 const app = express();
 app.use(bodyParser.json());
@@ -23,6 +24,13 @@ const database = {
             password: 'deltarune',
             entries: 0,
             joined: new Date()
+        }
+    ],
+    login: [
+        {
+            id: '987',
+            hash: '',
+            email: 'vaib.kapoor15@gmail.com'
         }
     ]
 }
@@ -87,5 +95,3 @@ app.put('/image', (req, res) => {
 app.listen(3000, () => {
     console.log("App is running on port 3000");
 })
-
-//test line
