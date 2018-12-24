@@ -1,12 +1,26 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt-nodejs');
+const cors = require('cors');
+
+const port = 3001;
 
 const app = express();
+
 app.use(bodyParser.json());
+app.use(cors());
 
 const database = {
     users: [
+        {
+            id: '122',
+            username: 'a',
+            name: 'a',
+            email: 'a',
+            password: 'a',
+            entries: 0,
+            joined: new Date()
+        },
         {
             id: '123',
             username: 'vaibzzz123',
@@ -18,13 +32,14 @@ const database = {
         },
         {
             id: '124',
-            username: 'lumenlogic',
-            name: 'Ryan',
+            username: 'asdf',
+            name: 'Ghjkl',
             email: 'idk@gmail.com',
-            password: 'deltarune',
+            password: 'qwertyuiop',
             entries: 0,
             joined: new Date()
-        }
+        },
+
     ],
     login: [
         {
@@ -40,22 +55,24 @@ app.get('/', (req, res) => {
 })
 
 app.post('/signin', (req, res) => {
-    if (req.body.email === database.users[0].email &&
-        req.body.password === database.users[0].password) {
-        res.json('success');
-    }
-    else {
+    let found = false;
+    database.users.forEach(user => {
+        if (req.body.email === user.email && req.body.password === user.password) {
+            found = true;
+            return res.json(user);
+        }
+    })
+    if(!found) {
         res.status(400).json('error logging in');
     }
 })
 
 app.post('/register', (req, res) => {
-    const { email, name, password, username } = req.body;
+    const { email, name, username } = req.body;
     database.users.push({
         id: '125',
         email: email,
         name: name,
-        password: password,
         username: username,
         entries: 0,
         joined: new Date()
@@ -92,6 +109,6 @@ app.put('/image', (req, res) => {
     }
 })
 
-app.listen(3000, () => {
-    console.log("App is running on port 3000");
+app.listen(port, () => {
+    console.log("App is running on port", port);
 })
