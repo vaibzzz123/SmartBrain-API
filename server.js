@@ -5,6 +5,8 @@ const cors = require('cors');
 
 const port = 3001;
 
+//TODO fix signin endpoint to not return password
+
 const app = express();
 
 app.use(bodyParser.json());
@@ -68,12 +70,13 @@ app.post('/signin', (req, res) => {
 })
 
 app.post('/register', (req, res) => {
-    const { email, name, username } = req.body;
+    const { email, name, password, username } = req.body;
     database.users.push({
         id: '125',
         email: email,
         name: name,
         username: username,
+        password: password,
         entries: 0,
         joined: new Date()
     })
