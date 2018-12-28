@@ -2,6 +2,17 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt-nodejs');
 const cors = require('cors');
+const knex = require('knex');
+
+const db = knex({
+    client: 'pg',
+    connection: {
+        host: '127.0.0.1',
+        user: 'postgres',
+        password: 'test',
+        database: 'smartbrain'
+    }
+});
 
 const port = 3001;
 
@@ -52,6 +63,10 @@ const database = {
     ]
 }
 
+db.select('*').from('users').then(data => {
+    console.log(data);
+})
+
 app.get('/', (req, res) => {
     res.send(database.users);
 })
@@ -64,23 +79,25 @@ app.post('/signin', (req, res) => {
             return res.json(user);
         }
     })
-    if(!found) {
+    if (!found) {
         res.status(400).json('error logging in');
     }
 })
 
 app.post('/register', (req, res) => {
-    const { email, name, password, username } = req.body;
-    database.users.push({
-        id: '125',
+    const { email, name, password } = req.body;
+    db('users')
+    .returning('*')
+    .insert({
         email: email,
         name: name,
-        username: username,
-        password: password,
-        entries: 0,
         joined: new Date()
+    }).then(user => {
+        res.json(user[0]);
     })
-    res.json(database.users[database.users.length - 1]);
+    .catch(err => {
+        res.status(400).json('unable to register');
+    })
 })
 
 app.get('/profile/:id', (req, res) => {
