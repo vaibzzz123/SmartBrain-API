@@ -9,3 +9,5 @@
 /profile/:id: GET request, returns database entry for a user with the specified id.
 
 /image: PUT request, increments the signed in user's rank, and returns the new rank.
+
+/imageurl: POST request, processes Clarifai API request, taking in the image to send to API.
