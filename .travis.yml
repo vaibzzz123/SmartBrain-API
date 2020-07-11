@@ -1,0 +1,9 @@
+sudo: required
+
+language: node_js
+
+# services:
+  # - docker
+
+script:
+  - echo "Hello this is running properly"
