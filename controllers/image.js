@@ -1,16 +1,47 @@
-const Clarifai = require('clarifai');
+const { ClarifaiStub, grpc } = require("clarifai-nodejs-grpc");
 require('dotenv').config()
 
 const apiKey = process.env.CLARIFAI_KEY
 
-const app = new Clarifai.App({
-    apiKey: apiKey
-});
+const metadata = new grpc.Metadata();
+metadata.set("authorization", `Key ${apiKey}`);
+const stub = ClarifaiStub.grpc();
 
-const handleApiCall = (req, res) => {
-    app.models.predict(Clarifai.FACE_DETECT_MODEL, req.body.input)
-    .then(data => res.json(data))
-    .catch(err => res.status(400).json('unable to work with API'))
+const detectFace = (imageUrl) => {
+    return new Promise((resolve, reject) => {
+        stub.PostModelOutputs(
+            {
+                model_id: "face-detection",
+                inputs: [{data: {image: {url: imageUrl }}}]
+            },
+            metadata,
+            (error, response) => {
+                if (error) {
+                    reject("Error: " + error);
+                    return;
+                }
+
+                if (response.status.code !== 10000) {
+                    reject("Received failed status: " + response.status.description + "\n" + response.status.details);
+                    return;
+                }
+
+                let results = response.outputs[0].data.regions;
+                resolve(results);
+            }
+        );
+    })
+}
+
+
+const handleDetect = async (req, res) => {
+        const imageUrl = req.body.input;
+        await detectFace(imageUrl)
+        .then(data => {
+            const boundingBoxCoordinates = data[0].region_info.bounding_box; // TODO: Support multiple faces in image, currently only grabs first image on both backend and frontend
+            res.json(boundingBoxCoordinates)}
+            )
+        .catch(err => res.status(400).json(err))
 }
 
 const handleImage = (req, res, db) => {
@@ -23,5 +54,5 @@ const handleImage = (req, res, db) => {
 
 module.exports = {
     handleImage: handleImage,
-    handleApiCall: handleApiCall
+    handleDetect: handleDetect
 }
