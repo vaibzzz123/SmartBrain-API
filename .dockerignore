@@ -2,3 +2,10 @@ node_modules
 npm-debug.log
 .env
 .env.local
+.git
+.gitignore
+
+start_containers.sh
+stop_containers.sh
+
+db/
