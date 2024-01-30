@@ -13,6 +13,9 @@ RUN --mount=type=bind,source=package.json,target=package.json \
     --mount=type=cache,target=/root/.yarn \
     yarn install --production --frozen-lockfile
 
+# Run the application as a non-root user.
+USER node
+
 # Bundle app source inside Docker image
 COPY . .
 
