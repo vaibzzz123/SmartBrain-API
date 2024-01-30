@@ -238,10 +238,10 @@ chokidar@^3.5.2:
   optionalDependencies:
     fsevents "~2.3.2"
 
-clarifai-nodejs-grpc@^10.0.4:
-  version "10.0.4"
-  resolved "https://registry.yarnpkg.com/clarifai-nodejs-grpc/-/clarifai-nodejs-grpc-10.0.4.tgz#af88bbeffc169db7f31db35cfbe9b0ca8ab7d853"
-  integrity sha512-B9qR88825NmTd0/aUt1udigqlDAo0D+4gJ4rKjoLYOSpwbyQtM7F/H6Xml8wumtOJJURJj+a8ybseCIOsi9PgQ==
+clarifai-nodejs-grpc@^10.0.10:
+  version "10.0.10"
+  resolved "https://registry.yarnpkg.com/clarifai-nodejs-grpc/-/clarifai-nodejs-grpc-10.0.10.tgz#f0bfe28d4609e362bcebf71d37874ff01ea9e369"
+  integrity sha512-TtvT9PxtdL3MnoxaReGsdJ3FS9BWPQNKYBpTlD700qPsq/6w8MvRJ3I0XJbVmAQI5YZL2pdJKzQ4mOgowpbLOQ==
   dependencies:
     "@grpc/grpc-js" "^1.4.2"
     "@grpc/proto-loader" "^0.5.5"
@@ -353,10 +353,10 @@ destroy@1.2.0:
   resolved "https://registry.yarnpkg.com/destroy/-/destroy-1.2.0.tgz#4803735509ad8be552934c67df614f94e66fa015"
   integrity sha512-2sJGJTaXIIaR1w4iJSNoN0hnMY7Gpc/n8D4qSCJw8QqFWXf7cuAgnEHxBpweaVcPevC2l3KpjYCx3NypQQgaJg==
 
-dotenv@^16.3.1:
-  version "16.3.1"
-  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-16.3.1.tgz#369034de7d7e5b120972693352a3bf112172cc3e"
-  integrity sha512-IPzF4w4/Rd94bA9imS68tZBaYyBWSCE47V1RGuMrB94iyTOIEwRmVL2x/4An+6mETpLrKJ5hQkB8W4kFAadeIQ==
+dotenv@^16.4.1:
+  version "16.4.1"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-16.4.1.tgz#1d9931f1d3e5d2959350d1250efab299561f7f11"
+  integrity sha512-CjA3y+Dr3FyFDOAMnxZEGtnW9KBR2M0JvvUtXNW+dYJL5ROWxP9DUHCwgFqpMk0OXCc0ljhaNTr2w/kutYIcHQ==
 
 ee-first@1.1.1:
   version "1.1.1"
